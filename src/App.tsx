@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import Header from "./components/header";
+import Message from "./components/message";
+import { TemperatureChart } from "./components/temperature-chart";
+import { Card } from "./components/ui/card";
+import { WindspeedChart } from "./components/windspeed-chart";
+import { BeeChart } from "./components/bee-chart";
+import { WeightChart } from "./components/weight-chart";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <div className="px-[20px] sm:px-[50px] lg:px-[150px] flex flex-col gap-4 py-[20px]">
+        <Message />
+        <Card>
+          <img
+            src="https://motor.elpais.com/wp-content/uploads/2022/01/google-maps-22.jpg"
+            alt="map"
+            className="w-full object-cover h-[300px] rounded-lg"
+          />
+        </Card>
+        <div className="w-full flex gap-4">
+          <TemperatureChart />
+          <WindspeedChart />
+        </div>
+        <div className="w-full flex gap-4 pb-4">
+          <BeeChart />
+          <WeightChart />
+        </div>
+      </div>
     </div>
   );
 }
