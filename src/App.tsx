@@ -18,11 +18,11 @@ function App() {
             className="w-full object-cover h-[300px] rounded-lg"
           />
         </Card>
-        <div className="w-full flex gap-4">
+        <div className="w-full flex flex-col lg:flex-row gap-4">
           <TemperatureChart />
           <WindspeedChart />
         </div>
-        <div className="w-full flex gap-4 pb-4">
+        <div className="w-full flex flex-col lg:flex-row gap-4">
           <BeeChart />
           <WeightChart />
         </div>
