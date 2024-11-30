@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <div className="px-[20px] sm:px-[50px] lg:px-[150px] flex flex-col gap-4 py-[20px]">
+      <div className="px-[20px] sm:px-[50px] lg:px-[150px] flex flex-col pb-16 gap-4 py-[20px]">
         <Select>
           <SelectTrigger className="w-full lg:hidden">
             <SelectValue placeholder="Select an Apiary" />
