@@ -7,9 +7,9 @@ const Message = () => {
   return (
     <Card>
       <CardContent className="flex gap-4 py-4 justify-between items-center">
-        <div className="flex gap-4 items-center">
+        <div className="lg:flex-row flex flex-col  gap-4 lg:items-center items-start">
           <AlertTriangle className="w-6 h-6 text-red-500" />
-          <div className="flex gap-2 items-center">
+          <div className="flex flex-col lg:flex-row gap-2 lg:items-center">
             <p className="text-sm font-medium">
               There is a storm incoming in Apiary 1. Check the AI suggestions
               for more information.
@@ -21,9 +21,6 @@ const Message = () => {
             </a>
           </div>
         </div>
-        <p className="text-sm text-muted-foreground">
-          <CircleX className="w-4 h-4 cursor-pointer hover:scale-105 transition-all" />
-        </p>
       </CardContent>
     </Card>
   );

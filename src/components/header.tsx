@@ -23,16 +23,18 @@ const Header = () => (
         alt="Bee App"
       />
     </div>
-    <Select>
-      <SelectTrigger className="w-[240px]">
-        <SelectValue placeholder="Select an Apiary" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="apiary1">Apiary 1</SelectItem>
-        <SelectItem value="apiary2">Apiary 2</SelectItem>
-        <SelectItem value="apiary3">Apiary 3</SelectItem>
-      </SelectContent>
-    </Select>
+    <div className="hidden lg:block">
+      <Select>
+        <SelectTrigger className="w-[240px]">
+          <SelectValue placeholder="Select an Apiary" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="apiary1">Apiary 1</SelectItem>
+          <SelectItem value="apiary2">Apiary 2</SelectItem>
+          <SelectItem value="apiary3">Apiary 3</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
     <div className="w-[140px] h-5 justify-end items-center gap-3 flex">
       <div className="relative">
         <DropdownMenu>
