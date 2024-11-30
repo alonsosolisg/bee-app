@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
   ReferenceLine,
+  ReferenceArea,
 } from "recharts";
 
 import {
@@ -42,7 +43,7 @@ const chartConfig = {
 
 export function TemperatureChart() {
   return (
-    <Card className="w-full">
+    <Card className="w-full h-fit">
       <div className="flex w-full justify-between gap-2 p-6">
         <div>
           <CardTitle className="flex items-center gap-2">
@@ -69,6 +70,20 @@ export function TemperatureChart() {
               bottom: 12,
             }}
           >
+            <defs>
+              <linearGradient id="colorTemperature" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0%"
+                  stopColor="hsl(var(--accent))"
+                  stopOpacity={0.4}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(var(--accent))"
+                  stopOpacity={0.1}
+                />
+              </linearGradient>
+            </defs>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="day"
@@ -84,6 +99,12 @@ export function TemperatureChart() {
               unit="°C"
               domain={[0, 35]}
             />
+            <ReferenceArea
+              y1={30}
+              y2={35}
+              fill="hsl(var(--destructive))"
+              fillOpacity={0.1}
+            />
             <ReferenceLine
               y={30}
               strokeDasharray="3 3"
@@ -96,14 +117,36 @@ export function TemperatureChart() {
             <Area
               dataKey="temperature"
               type="linear"
-              fill="var(--color-temperature)"
-              fillOpacity={0.4}
-              stroke="var(--color-temperature)"
+              fill="url(#colorTemperature)"
+              fillOpacity={1}
+              stroke="hsl(var(--accent))"
+              strokeWidth={2}
+              isAnimationActive={true}
+              dot={(props) => {
+                const { cx, cy, payload } = props;
+                return (
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={4}
+                    fill={
+                      payload.temperature >= 30
+                        ? "hsl(var(--destructive))"
+                        : "hsl(var(--accent))"
+                    }
+                    stroke={
+                      payload.temperature >= 30
+                        ? "hsl(var(--destructive))"
+                        : "hsl(var(--accent))"
+                    }
+                  />
+                );
+              }}
             />
           </AreaChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter>
+      {/* <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
@@ -123,7 +166,7 @@ export function TemperatureChart() {
             </ul>
           </div>
         </div>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }
