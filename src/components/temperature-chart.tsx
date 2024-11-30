@@ -25,12 +25,12 @@ import {
 } from "./ui/chart";
 
 const chartData = [
-  { day: "Monday", temperature: 24.5 },
-  { day: "Tuesday", temperature: 26.8 },
-  { day: "Wednesday", temperature: 28.3 },
-  { day: "Thursday", temperature: 25.7 },
-  { day: "Friday", temperature: 27.9 },
-  { day: "Saturday", temperature: 32.2 },
+  { day: "Monday", temperature: 12.5 },
+  { day: "Tuesday", temperature: 16.8 },
+  { day: "Wednesday", temperature: 18.3 },
+  { day: "Thursday", temperature: 15.7 },
+  { day: "Friday", temperature: 17.9 },
+  { day: "Saturday", temperature: 11.2 },
 ];
 
 const chartConfig = {
@@ -53,7 +53,8 @@ export function TemperatureChart() {
           </CardDescription>
         </div>
         <div className="text-3xl font-bold">
-          32.2<span className="text-xl">°C</span>
+          {chartData[chartData.length - 1].temperature}
+          <span className="text-xl">°C</span>
         </div>
       </div>
       <CardContent>
@@ -81,7 +82,7 @@ export function TemperatureChart() {
               axisLine={false}
               tickMargin={8}
               unit="°C"
-              domain={[20, 35]}
+              domain={[0, 35]}
             />
             <ReferenceLine
               y={30}

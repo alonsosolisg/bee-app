@@ -23,14 +23,15 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "./ui/chart";
+import { useEffect, useState } from "react";
 
 const chartData = [
   { day: "Monday", windspeed: 15.2 },
-  { day: "Tuesday", windspeed: 22.4 },
-  { day: "Wednesday", windspeed: 28.7 },
-  { day: "Thursday", windspeed: 31.2 },
-  { day: "Friday", windspeed: 25.8 },
-  { day: "Saturday", windspeed: 18.9 },
+  { day: "Tuesday", windspeed: 18.4 },
+  { day: "Wednesday", windspeed: 14.7 },
+  { day: "Thursday", windspeed: 16.2 },
+  { day: "Friday", windspeed: 18.8 },
+  { day: "Saturday", windspeed: 24.4 },
 ];
 
 const chartConfig = {
@@ -41,8 +42,40 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function WindspeedChart() {
+  const [isHighlighted, setIsHighlighted] = useState(false);
+
+  useEffect(() => {
+    const checkHash = () => {
+      const element = document.getElementById("windspeed-chart");
+      if (!element) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (
+            entry.isIntersecting ||
+            window.location.hash === "#windspeed-chart"
+          ) {
+            setIsHighlighted(true);
+          } else {
+            setIsHighlighted(false);
+          }
+        },
+        {
+          threshold: 0.5, // Element needs to be 50% visible
+        }
+      );
+
+      observer.observe(element);
+      return () => observer.disconnect();
+    };
+
+    checkHash();
+    window.addEventListener("hashchange", checkHash);
+    return () => window.removeEventListener("hashchange", checkHash);
+  }, []);
+
   return (
-    <Card className="w-full">
+    <Card className="w-full" id="windspeed-chart">
       <div className="flex w-full justify-between gap-2 p-6">
         <div>
           <CardTitle className="flex items-center gap-2">
@@ -51,7 +84,8 @@ export function WindspeedChart() {
           <CardDescription>Showing wind speed for the last day</CardDescription>
         </div>
         <div className="text-3xl font-bold">
-          18.9<span className="text-xl">m/h</span>
+          {chartData[chartData.length - 1].windspeed}
+          <span className="text-xl">m/s</span>
         </div>
       </div>
       <CardContent>
@@ -78,11 +112,11 @@ export function WindspeedChart() {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              unit="m/h"
+              unit="m/s"
               domain={[0, 35]}
             />
             <ReferenceLine
-              y={30}
+              y={20}
               strokeDasharray="3 3"
               stroke="hsl(var(--destructive))"
             />
@@ -101,10 +135,25 @@ export function WindspeedChart() {
         </ChartContainer>
       </CardContent>
       <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
+        <div
+          className={`flex w-full items-start gap-2 text-sm transition-all duration-300 ${
+            isHighlighted
+              ? "scale-105 bg-accent/10 p-4 rounded-lg shadow-lg"
+              : ""
+          }`}
+        >
           <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              AI Suggestions <Sparkles className="h-4 w-4" />
+            <div
+              className={`flex items-center gap-2 font-medium leading-none ${
+                isHighlighted ? "text-lg" : ""
+              }`}
+            >
+              AI Suggestions{" "}
+              <Sparkles
+                className={`h-4 w-4 ${
+                  isHighlighted ? "animate-pulse text-accent" : ""
+                }`}
+              />
             </div>
             <ul className="flex flex-col ml-4 gap-2 leading-none text-muted-foreground list-disc">
               <li>Consider reducing hive entrance size during high winds.</li>
